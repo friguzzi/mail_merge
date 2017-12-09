@@ -50,11 +50,11 @@ mail_merge('Hello ~s how are you?',[['gianni@abc.com','Gianni'],
 ==
 */
 
-%!  mail_merge(+Message:atom_or_string,,+Addresses:list,+Options:list)
+%!  mail_merge(+Message:atom_or_string,+Addresses:list,+Options:list) is det
 %
 %   Perform mail merge using SMTP. 
-%   Message is a format string as in format/2, Addresses is a list of lists, each sublist is of the for
-%   [To|Fields] where To is the recipient of the message and Fields contain the values to replace placeholders in Message. 
+%   Message is a format string as in format/2, Addresses is a list of lists, each sublist is of the form
+%   =[To|Fields]= where To is the recipient of the message and Fields contain the values to replace placeholders in Message. 
 %   Message and Fields are passed to format/2 to produce the message. Options are passed to smtp_send_mail/3 from package
 %   smtp, they are:
 %
@@ -77,8 +77,7 @@ mail_merge('Hello ~s how are you?',[['gianni@abc.com','Gianni'],
 %     * content_type(+ContentType)
 %       sets =|Content-Type|= header
 %     * mailed_by(By)
-%       add X-Mailer: SWI-Prolog <version>, pack(smtp) to header
-%       iff By == true
+%       add =|X-Mailer: SWI-Prolog <version>, pack(smtp)|= to header iff By is true
 %     * header(Name(Val))
 %       add HName: Val to headers. HName is Name if Name's first
 %       letter is a capital, and it is Name after capitalising its
@@ -87,7 +86,7 @@ mail_merge('Hello ~s how are you?',[['gianni@abc.com','Gianni'],
 %       and header('FOO'(bar)) adds "FOO: bar"
 %
 %   Defaults are provided by settings associated to this module. host, port, security and auth_method are 
-%   set by defualt to the values needed by gmail. If you use your gmail account you should just provide 
+%   set by default to the values needed by gmail. If you use your gmail account you should just provide 
 %   the option auth(<google_user>-<google_password>)
 %   You should also make sure that your google account has the option "Allow less secure apps" set to on.
 %   You can find the option in your account page under Apps with account access.
